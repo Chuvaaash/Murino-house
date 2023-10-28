@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" class="occupant_form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="control-group{% if field.errors %}has-error{% endif %}"></div>
+    {% endfor %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-secondary save">Save</button>
+</form>
+{% endblock %}cd

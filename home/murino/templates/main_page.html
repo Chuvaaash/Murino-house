@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if occupants %}
+        <ol>
+        {% for object in occupants %}
+            <b><li class="occupants"><a href="{% url 'occupant_page' page_name=object.page_name %}">
+                {{ object.nickname }}
+            </a></li></b>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>There is no occupants yet :(</p>
+    {% endif %}
+{% endblock %}

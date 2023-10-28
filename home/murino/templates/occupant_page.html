@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ occupant.nickname }} <a href="{% url 'edit_occupant' page_name=occupant.page_name %}">(Изменить)</a></h2>
+<p>Название страницы: {{ occupant.page_name }}</p>
+<p>Имя: {{ occupant.name }}</p>
+<p>Возраст: {{ occupant.age }}</p>
+<p>Дата рождения: {{ occupant.date_of_birth }}</p>
+{% if occupant.avatar %}
+    <img class="avatar" src="{{ occupant.avatar.url }}">
+{% endif %}
+{% endblock %}

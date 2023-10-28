@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Murino House</title>
+    <link rel="stylesheet" href="{% static 'css/murino.css' %}">
+</head>
+<body>
+    <header class="page-header">
+        <h1><a href="/">{% include './icons/house.svg' %}Murino House</a></h1>
+    </header>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

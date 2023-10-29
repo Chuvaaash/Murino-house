@@ -1,4 +1,4 @@
-# Python
+# Python cache
 *.pyc
 *~
 __pycache__
@@ -10,8 +10,8 @@ myvenv/
 # Database
 db.sqlite3
 
-# Static folder at project root
-/static/
-
-# PyCharm
+Pycharm
 .idea/
+
+# Random files
+status

@@ -31,8 +31,10 @@ def owner_panel_create(request):
 
 def occupant_page(request, page_name):
     occupant = Occupant.objects.get(page_name=page_name)
+    occupant_hobbies = Occupant.objects.get(page_name=page_name).hobbies.all()
     return render(request, 'occupant_page.html', {
-        'occupant': occupant
+        'occupant': occupant,
+        'occupant_hobbies': occupant_hobbies
     })
 
 

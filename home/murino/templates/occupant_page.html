@@ -9,4 +9,12 @@
 {% if occupant.avatar %}
     <img class="avatar" src="{{ occupant.avatar.url }}">
 {% endif %}
+<br>
+<br>
+{% if occupant_hobbies %}
+<h3>Хобби:</h3>
+{% endif %}
+{% for hobby in occupant_hobbies %}
+<p>{{ hobby }}</p>
+{% endfor %}
 {% endblock %}

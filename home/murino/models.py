@@ -19,10 +19,19 @@ class Occupant(models.Model):
     avatar = models.ImageField(upload_to='avatars/', blank=True, default=None, null=True)
     hobbies = models.ManyToManyField(Hobby, related_name='hobbies')
 
+    def interact(self):
+        if self.page_name == "Kapibara" or self.page_name == "kapibara":
+            age = self.age
+            introduction = "Hi! My name is Andriyake a I am " + str(self.age) + " years old\nА ты шо тут делаешь? о_О"
+            return introduction
+        else:
+            introduction = "Данный персонаж еще не умеет взаимодействовать"
+
     def __str__(self):
         return self.page_name
 
 
+"""
 class Toy(models.Model):
     name = models.CharField(max_length=127)
     color = models.CharField(max_length=127)
@@ -30,3 +39,4 @@ class Toy(models.Model):
 
 class Items(models.Model):
     name = models.CharField(max_length=127)
+"""

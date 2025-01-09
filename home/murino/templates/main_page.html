@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if user %}
+        <p>{{user.username}}</p>
+    {% endif %}
     {% if occupants %}
         <ol>
         {% for object in occupants %}
             <b><li class="occupants"><a href="{% url 'occupant_page' page_name=object.page_name %}">
-                {{ object.nickname }}
+                {% if user.is_authenticated %}
+                    {{ object.nickname }}
+                {% else %}
+                    {{ object.name }}
+                {% endif %}
             </a></li></b>
             {% endfor %}
         </ol>

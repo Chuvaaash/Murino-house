@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ occupant.nickname }}</h2>
+<h3>{{ introduction }}</h3>
+<h3>Мои хобби:</h3>
+{% for hobby in occupant_hobbies %}
+<p>{{ hobby.description }}</p>
+{% endfor %}
+{% endblock %}

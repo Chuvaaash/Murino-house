@@ -11,10 +11,12 @@
 {% endif %}
 <br>
 <br>
-{% if occupant_hobbies %}
+{% if occupant_hobbies.count %}
 <h3>Хобби:</h3>
 {% endif %}
 {% for hobby in occupant_hobbies %}
-<p>{{ hobby }}</p>
+<p>{{ hobby.description }}</p>
+<br>
+<h4 ><a href="{% url 'interactions' page_name=occupant.page_name %}">Привет, Канпибарик!</a></h4>
 {% endfor %}
 {% endblock %}

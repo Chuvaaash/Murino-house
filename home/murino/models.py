@@ -20,12 +20,13 @@ class Occupant(models.Model):
     hobbies = models.ManyToManyField(Hobby, related_name='hobbies')
 
     def interact(self):
+        introduction = ""
         if self.page_name == "Kapibara" or self.page_name == "kapibara":
             age = self.age
             introduction = "Hi! My name is Andriyake a I am " + str(self.age) + " years old\nА ты шо тут делаешь? о_О"
-            return introduction
         else:
             introduction = "Данный персонаж еще не умеет взаимодействовать"
+        return introduction
 
     def __str__(self):
         return self.page_name

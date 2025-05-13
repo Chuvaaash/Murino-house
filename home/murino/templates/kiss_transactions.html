@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>Requested by</th>
+        <th>Quantity</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+    {% for transaction in kiss_transactions %}
+    <tr>
+        <td>{{ transaction.requested_by }}</td>
+        <td>{{ transaction.number_of_kisses }}</td>
+        <td>{{ transaction.request_date }}</td>
+        <td>{{ transaction.kiss_transaction_status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

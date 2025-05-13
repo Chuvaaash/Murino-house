@@ -12,6 +12,8 @@ urlpatterns = [
     path('login/', views.login_page),
     path('logout/', views.logout_view),
     path('interactions/<page_name>', views.interactions, name='interactions'),
+    path('kisses/', views.kisses),
+    path('requestkisses/', views.requestkisses),
 
 ]
 

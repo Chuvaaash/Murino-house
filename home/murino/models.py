@@ -32,6 +32,33 @@ class Occupant(models.Model):
         return self.page_name
 
 
+class KissTransaction(models.Model):
+    REQUESTED = "REQD"
+    APPROVED = "APPD"
+    DECLINED = "DCLD"
+    KISS_TRANSACTION_STATUSES = [
+        (REQUESTED, "Requested"),
+        (APPROVED, "Approved"),
+        (DECLINED, "Declined")
+    ]
+    requested_by = models.ForeignKey(Occupant, null=True, on_delete=models.SET_NULL)
+    number_of_kisses = models.IntegerField()
+    request_date = models.DateField()
+    kiss_transaction_status = models.CharField(
+        max_length=4,
+        choices=KISS_TRANSACTION_STATUSES,
+        default=DECLINED
+    )
+
+
+"""
+    KISS_TRANSACTION_STATUSES = {
+        "Requested",
+        "Approved",
+        "Declined",
+    }
+"""
+
 """
 class Toy(models.Model):
     name = models.CharField(max_length=127)

@@ -5,8 +5,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 # from django.contrib.sessions.models import Session
 
-from .models import Occupant
+from .models import Occupant, KissTransaction
 from .forms import OccupantForm
+
+import datetime
 
 
 def main_page(request):
@@ -113,3 +115,53 @@ def interactions(request, page_name):
         'introduction': introduction,
         'occupant_hobbies': occupant_hobbies
     })
+
+
+def kisses(request):
+    if request.method == 'POST':
+        return HttpResponse("<p>kisse</p>")
+
+    else:
+        kiss_transactions = KissTransaction.objects.all()
+        return render(request, 'kiss_transactions.html', {
+            'kiss_transactions': kiss_transactions
+        })
+
+
+def requestkisses(request):
+    if request.method == 'POST':
+        # return HttpResponse('requestkisses post')
+        amount = request.POST.get('amount')
+        amount = int(amount)
+
+        today_date = datetime.date.today()
+        qs = KissTransaction.objects.filter(request_date=today_date)
+        qs_lentgh = qs.count()
+        kisses_requested_today = 0
+        for el in qs:
+            kisses_requested_today += el.number_of_kisses
+
+        if kisses_requested_today > 10:
+            return render(request, 'requestkisses.html', {
+                'kisses_requested_today': kisses_requested_today
+            })
+
+
+        if amount > 10:
+            return render(request, 'requestkisses.html', {
+                'amount': amount
+            })
+        occupant = Occupant.objects.get(page_name='Mishka')
+        now = datetime.date.today()
+        transaction = KissTransaction.objects.create(
+            requested_by=occupant,
+            number_of_kisses=amount,
+            request_date=now,
+            kiss_transaction_status=KissTransaction.REQUESTED)
+        return redirect(kisses)
+
+    else:
+        amount = 0
+        return render(request, 'requestkisses.html', {
+            'amount': amount
+        })

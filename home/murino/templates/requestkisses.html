@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <b>Запросить поцелуйчики</b>
+    <p>Сколько поцелуйчиков вы хотите запросить?</p>
+    {% if kisses_requested_today >= 10 %}
+    <p>Вы сегодня запросили уже {{ kisses_requested_today }} поцелуйчиков. Лимит - 10</p>
+    {% endif %}
+    {% if amount > 10 %}
+    <p>Нельзя запросить больше 10 поцелуйчиков. Вы запросили {{ amount }}</p>
+    {% endif %}
+    <input type="number" name="amount" /><br>
+    <button type="submit" class="save btn btn-secondary">Запросить</button>
+</form>
+{% endblock %}

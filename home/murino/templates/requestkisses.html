@@ -11,7 +11,7 @@
     {% if amount > 10 %}
     <p>Нельзя запросить больше 10 поцелуйчиков. Вы запросили {{ amount }}</p>
     {% endif %}
-    <input type="number" name="amount" /><br>
+    <input type="number" min='1' name="amount" /><br>
     <button type="submit" class="save btn btn-secondary">Запросить</button>
 </form>
 {% endblock %}

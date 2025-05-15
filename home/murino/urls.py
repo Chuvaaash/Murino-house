@@ -10,10 +10,12 @@ urlpatterns = [
     path('edit_occupant/<page_name>', views.edit_occupant, name='edit_occupant'),
     path('zhiteli/<page_name>', views.occupant_page, name='occupant_page'),
     path('login/', views.login_page),
+    path('signup/', views.signup),
     path('logout/', views.logout_view),
     path('interactions/<page_name>', views.interactions, name='interactions'),
     path('kisses/', views.kisses),
     path('requestkisses/', views.requestkisses),
+    path('shop/', views.shop),
 
 ]
 

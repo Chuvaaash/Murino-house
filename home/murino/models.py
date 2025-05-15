@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MinValueValidator
+from django.contrib.auth.models import User
 
 
 class Hobby(models.Model):
@@ -18,6 +20,7 @@ class Occupant(models.Model):
     avatar_file = models.FileField(upload_to='files/', blank=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True, default=None, null=True)
     hobbies = models.ManyToManyField(Hobby, related_name='hobbies')
+    user = models.OneToOneField(User, default=None, on_delete=models.SET_DEFAULT, null=True)
 
     def interact(self):
         introduction = ""
@@ -41,7 +44,7 @@ class KissTransaction(models.Model):
         (APPROVED, "Approved"),
         (DECLINED, "Declined")
     ]
-    requested_by = models.ForeignKey(Occupant, null=True, on_delete=models.SET_NULL)
+    requested_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     number_of_kisses = models.IntegerField()
     request_date = models.DateField()
     kiss_transaction_status = models.CharField(

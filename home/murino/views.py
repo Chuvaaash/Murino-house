@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 # from django.contrib.sessions.models import Session
+from django.db.models import Sum
 
 from .models import Occupant, KissTransaction
 from .forms import OccupantForm
@@ -130,13 +131,13 @@ def kisses(request):
 
 def requestkisses(request):
     if request.method == 'POST':
+        user = request.user
         # return HttpResponse('requestkisses post')
         amount = request.POST.get('amount')
         amount = int(amount)
 
         today_date = datetime.date.today()
         qs = KissTransaction.objects.filter(request_date=today_date)
-        qs_lentgh = qs.count()
         kisses_requested_today = 0
         for el in qs:
             kisses_requested_today += el.number_of_kisses
@@ -151,17 +152,38 @@ def requestkisses(request):
             return render(request, 'requestkisses.html', {
                 'amount': amount
             })
-        occupant = Occupant.objects.get(page_name='Mishka')
+
+#        Occupant = User.objects.get(page_name='Mishka')
         now = datetime.date.today()
         transaction = KissTransaction.objects.create(
-            requested_by=occupant,
+            requested_by=user,
             number_of_kisses=amount,
             request_date=now,
             kiss_transaction_status=KissTransaction.REQUESTED)
         return redirect(kisses)
 
     else:
-        amount = 0
-        return render(request, 'requestkisses.html', {
-            'amount': amount
-        })
+        if request.user.is_authenticated:
+            amount = 0
+            return render(request, 'requestkisses.html', {
+                'amount': amount
+            })
+        else:
+            return redirect('/login')
+
+
+def shop(request):
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.user.id)
+    else:
+        user = None
+    kiss_transactions = KissTransaction.objects.filter(requested_by=user)
+    kiss_sum_dict = KissTransaction.objects.filter(requested_by=user.id, kiss_transaction_status='APPD').aggregate(number=Sum('number_of_kisses'))
+    kiss_sum = kiss_sum_dict['number']
+    if kiss_sum == None:
+        kiss_sum = 0
+    return render(request, 'shop_main_page.html', {
+        'user': user,
+        'kiss_transactions': kiss_transactions,
+        'kiss_sum': kiss_sum
+    })

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user %}
+        <p>{{user.username}}</p>
+    {% endif %}
+    <p>У вас есть {{kiss_sum}} поцелуйчиков</p>
+    <p>История транзакций:</p>
+    <table>
+    <tr>
+        <th>Requested by</th>
+        <th>Quantity</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+    {% for transaction in kiss_transactions %}
+    <tr>
+        <td>{{ transaction.requested_by }}</td>
+        <td>{{ transaction.number_of_kisses }}</td>
+        <td>{{ transaction.request_date }}</td>
+        <td>{{ transaction.kiss_transaction_status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
